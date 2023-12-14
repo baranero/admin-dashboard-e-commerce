@@ -26,7 +26,7 @@ const formSchema = z.object({
 export const StoreModal = () => {
   const storeModal = useStoreModal();
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,18 +37,16 @@ export const StoreModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const response = await axios.post('/api/stores', values)
+      const response = await axios.post("/api/stores", values);
 
-      toast.success("Store created.")
-      
-
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong.")
+      toast.error("Something went wrong.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -80,7 +78,9 @@ export const StoreModal = () => {
                 <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
                   Cancel
                 </Button>
-                <Button disabled={loading} type="submit">Continue</Button>
+                <Button disabled={loading} type="submit">
+                  Continue
+                </Button>
               </div>
             </form>
           </Form>
