@@ -57,19 +57,22 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   });
 
   console.log(initialData);
-  
 
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          data
+        );
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
-      router.refresh();
+
       router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
+      router.refresh();
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {
@@ -80,12 +83,14 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`)
       toast.success("Billboard deleted");
     } catch (error) {
-      toast.error("Make sure you removed categories using this billboard first.");
+      toast.error(
+        "Make sure you removed categories using this billboard first."
+      );
     } finally {
       setLoading(false);
       setOpen(false);
@@ -103,11 +108,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => setOpen(true)}
-          >
+          <Button variant="destructive" size="sm" onClick={() => setOpen(true)}>
             <Trash className="h-4 w-4" />
           </Button>
         )}
@@ -160,7 +161,6 @@ export const BillboardForm: FC<BillboardFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
