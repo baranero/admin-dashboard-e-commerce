@@ -92,9 +92,10 @@ export const CategoryForm: FC<CategoryFormProps> = ({
       await axios.delete(
         `/api/${params.storeId}/categories/${params.categoryId}`
       );
-      router.refresh();
+
       router.push(`/${params.storeId}/categories`);
       toast.success("Category deleted");
+      router.refresh();
     } catch (error) {
       toast.error(
         "Make sure you removed all products using this category first."
