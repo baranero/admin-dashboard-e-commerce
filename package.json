@@ -34,6 +34,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.49.0",
     "react-hot-toast": "^2.4.1",
+    "react-spinners": "^0.13.8",
     "recharts": "^2.10.3",
     "stripe": "^14.11.0",
     "tailwind-merge": "^2.1.0",
